@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edital Verticalizado - Gestão de Estudos</title>
+    <title>Polícia Penal RS - Edital Verticalizado</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #f8fafc;
+            --bg-primary: #f1f5f9;
             --bg-card: #ffffff;
-            --text-main: #1e293b;
-            --accent: #3b82f6;
+            --text-main: #0f172a;
+            --accent: #4f46e5;
+            --border: #e2e8f0;
+            --secondary-text: #64748b;
         }
 
         .dark-mode {
-            --bg-primary: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f1f5f9;
-            --accent: #60a5fa;
+            --bg-primary: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --accent: #818cf8;
+            --border: #1e293b;
+            --secondary-text: #94a3b8;
         }
 
         body {
@@ -26,25 +30,28 @@
             background-color: var(--bg-primary);
             color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .card {
             background-color: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
             transition: transform 0.2s ease;
         }
 
         .checkbox-custom {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
             cursor: pointer;
             accent-color: var(--accent);
+            flex-shrink: 0;
         }
 
         .progress-container {
-            height: 10px;
+            height: 8px;
             background-color: #e2e8f0;
             border-radius: 999px;
             overflow: hidden;
@@ -56,9 +63,9 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
             width: 0%;
-            transition: width 0.4s ease-out;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .subject-header {
@@ -66,52 +73,64 @@
             user-select: none;
         }
 
-        .topic-item:hover {
-            background-color: rgba(59, 130, 246, 0.05);
+        .topic-item {
+            transition: background-color 0.2s;
+            border-bottom: 1px solid var(--border);
         }
 
-        .sticky-header {
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+
+        .topic-item:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+        }
+
+        .sticky-progress {
             position: sticky;
             top: 0;
-            z-index: 50;
-            backdrop-filter: blur(8px);
-            background-color: rgba(var(--bg-primary), 0.8);
+            z-index: 100;
+            background-color: var(--bg-primary);
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="pb-12">
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto px-4">
         <!-- Header -->
-        <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <header class="pt-8 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-bold">Polícia Penal RS Edital Verticalizado</h1>
-                <p class="opacity-70">2026</p>
+                <h1 class="text-3xl font-extrabold tracking-tight text-indigo-600 dark:text-indigo-400">Polícia Penal RS</h1>
+                <p class="text-slate-500 dark:text-slate-400 font-medium">Edital Verticalizado</p>
             </div>
-            <div class="flex items-center gap-4">
-                <button id="themeToggle" class="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                    <svg id="sunIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
-                    <svg id="moonIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                </button>
-                <div class="text-right">
-                    <span class="text-sm font-semibold">Progresso Geral</span>
-                    <div class="flex items-center gap-3">
-                        <div class="progress-container w-32 md:w-48">
-                            <div id="overallProgressBar" class="progress-bar"></div>
-                        </div>
-                        <span id="overallPercentage" class="text-lg font-bold">0%</span>
-                    </div>
-                </div>
-            </div>
+            <button id="themeToggle" class="self-start md:self-center p-2.5 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all shadow-sm">
+                <svg id="sunIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
+                <svg id="moonIcon" class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
         </header>
+
+        <!-- Global Progress Sticky -->
+        <div class="sticky-progress">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Progresso Geral</span>
+                <span id="overallPercentage" class="text-3xl font-black text-indigo-600 dark:text-indigo-400">0%</span>
+            </div>
+            <div class="progress-container w-full shadow-inner">
+                <div id="overallProgressBar" class="progress-bar"></div>
+            </div>
+        </div>
 
         <!-- Subjects Container -->
         <div id="mainContainer" class="space-y-6">
-            <!-- As disciplinas serão inseridas aqui pelo JS -->
+            <!-- JS Inject -->
         </div>
 
-        <footer class="mt-12 text-center opacity-50 text-sm">
-            <p>Os dados são salvos automaticamente no seu navegador.</p>
+        <footer class="mt-12 py-8 text-center border-t border-gray-200 dark:border-gray-800">
+            <p class="text-sm text-slate-400 dark:text-slate-500 italic">Os dados são armazenados localmente e salvos automaticamente.</p>
         </footer>
     </div>
 
@@ -121,51 +140,62 @@
                 id: 'pt',
                 title: 'Língua Portuguesa',
                 topics: [
-                    '1. Leitura e compreensão de textos:',
-                    '1.1 Assunto.',
-                    '1.2 Estruturação do texto.',
-                    '1.3 Ideias principais e secundárias.',
-                    '1.4 Relação entre as ideias.',
-                    '1.5 Efeitos de sentido.',
-                    '1.6 Figuras de linguagem.',
-                    '1.7 Recursos de argumentação.',
-                    '1.8 Informações implícitas: pressupostos e subentendidos.',
-                    '1.9 Coesão e coerência textuais.',
-                    '2. Léxico:',
-                    '2.1 Significação de palavras e expressões no texto.',
-                    '2.2 Substituição de palavras e de expressões no texto.',
-                    '2.3 Estrutura e formação de palavras.',
-                    '3. Aspectos linguísticos:',
-                    '3.1 Relações morfossintáticas.',
-                    '3.2 Ortografia: emprego de letras e acentuação gráfica sistema oficial vigente (inclusive o Acordo Ortográfico vigente, conforme Decreto 7.875/12).',
-                    '3.3 Relações entre fonemas e grafias.',
-                    '3.4 Flexões e emprego de classes gramaticais.',
-                    '3.5 Vozes verbais e sua conversão.',
-                    '3.6 Concordância nominal e verbal.',
-                    '3.7 Regência nominal e verbal (inclusive emprego do acento indicativo de crase).',
-                    '3.8 Coordenação e subordinação: emprego das conjunções, das locuções conjuntivas e dos pronomes relativos.',
-                    '3.9 Pontuação.'
+                    '1. Leitura e compreensão de textos',
+                    '1.1 Assunto',
+                    '1.2 Estruturação do texto',
+                    '1.3 Ideias principais e secundárias',
+                    '1.4 Relação entre as ideias',
+                    '1.5 Efeitos de sentido',
+                    '1.6 Figuras de linguagem',
+                    '1.7 Recursos de argumentação',
+                    '1.8 Informações implícitas: pressupostos e subentendidos',
+                    '1.9 Coesão e coerência textuais',
+                    '2. Léxico',
+                    '2.1 Significação de palavras e expressões no texto',
+                    '2.2 Substituição de palavras e de expressões no texto',
+                    '2.3 Estrutura e formação de palavras',
+                    '3. Aspectos linguísticos',
+                    '3.1 Relações morfossintáticas',
+                    '3.2 Ortografia: emprego de letras e acentuação gráfica (Acordo Ortográfico Dec. 7.875/12)',
+                    '3.3 Relações entre fonemas e grafias',
+                    '3.4 Flexões e emprego de classes gramaticais',
+                    '3.5 Vozes verbais e sua conversão',
+                    '3.6 Concordância nominal e verbal',
+                    '3.7 Regência nominal e verbal (incluindo crase)',
+                    '3.8 Coordenação e subordinação (conjunções e pronomes relativos)',
+                    '3.9 Pontuação'
                 ]
             },
             {
                 id: 'info',
                 title: 'Informática',
                 topics: [
-                    '1. Windows 10: Área de Trabalho e Menu Iniciar',
-                    '1.1 Windows 10: Configurações, menus e ícones',
-                    '1.2 Windows 10: Janelas, Pastas e Bibliotecas',
-                    '2. Microsoft Word 2016: Ambiente e Componentes',
-                    '2.1 Word 2016: Edição e Formatação de Documentos',
-                    '2.2 Word 2016: Faixa de Opções e Guias',
-                    '3. Microsoft Excel 2016: Células, Planilhas e Pastas',
-                    '3.1 Excel 2016: Fórmulas e Funções',
-                    '3.2 Excel 2016: Formatação e Gráficos',
-                    '4. Google Chrome: Ambiente e Funcionalidades',
-                    '5. Mozilla Firefox: Ambiente e Funcionalidades',
-                    '6. Internet Explorer 11: Menus e Atalhos',
-                    '7. Outlook Express: Mensagens e Configurações',
-                    '8. Microsoft Outlook 2016: Gestão de e-mails',
-                    '9. Gmail: Funcionalidades, Filtros e Anexos'
+                    '1. Windows 10: (1) Área de Trabalho e Menu Iniciar (Exibir, Classificar, Atalhos, etc)',
+                    '1. Windows 10: (2) Barra de Tarefas, Menu Iniciar e Gerenciador de Tarefas',
+                    '1. Windows 10: (3) Janelas, Painel de Controle e Lixeira',
+                    '1. Windows 10: (4) Bibliotecas, Arquivos, Pastas, Ícones e Atalhos (Operações)',
+                    '1. Windows 10: (5) Nomes válidos para arquivos e pastas',
+                    '2. Word 2016: (1) Ambiente, Componentes e Personalização',
+                    '2. Word 2016: (2) Documentos (Criar, Salvar, Formatar)',
+                    '2. Word 2016: (3) Barra de Ferramentas e Faixa de Opções (Guias Início a Exibição)',
+                    '2. Word 2016: (4) Sistema de Ajuda',
+                    '3. Excel 2016: (1) Ambiente, Componentes e Janela',
+                    '3. Excel 2016: (2) Elementos: Célula, Planilha e Pasta',
+                    '3. Excel 2016: (3) Planilhas e Pastas (Fórmulas e Funções)',
+                    '3. Excel 2016: (4) Barra de Ferramentas e Formatação de Células',
+                    '3. Excel 2016: (5) Significado e resultado de fórmulas',
+                    '3. Excel 2016: (6) Sistema de Ajuda',
+                    '4. Google Chrome: (1) Ambiente e Componentes da Janela',
+                    '4. Google Chrome: (2) Todas as Funcionalidades',
+                    '5. Mozilla Firefox: (1) Ambiente e Componentes da Janela',
+                    '5. Mozilla Firefox: (2) Todas as Funcionalidades',
+                    '6. Internet Explorer 11: (1) Ambiente e Janela Principal',
+                    '6. Internet Explorer 11: (2-4) Barras de Ferramentas, Favoritos e Menus',
+                    '6. Internet Explorer 11: (5) Teclas de atalho',
+                    '7. Outlook Express: Contas, Mensagens e Anexos',
+                    '7. Outlook Express: Importação/Exportação e Atalhos',
+                    '8. Microsoft Outlook 2016: Contas, Mensagens e Organização',
+                    '9. Gmail: Menus, Caixas, Filtros e Configurações'
                 ]
             },
             {
@@ -173,46 +203,66 @@
                 title: 'Legislação Aplicada / Direito',
                 topics: [
                     '1. Lei Federal nº 11.340/2006 (Lei Maria da Penha)',
-                    '2. Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial)',
+                    '2. Lei Federal nº 12.288/2010 (Estatuto Nacional da Igualdade Racial)',
                     '3. Lei Estadual nº 13.694/2011 (Estatuto Estadual da Igualdade Racial)',
                     '4. CF/88: Princípios Fundamentais (Art. 1º ao 4º)',
-                    '4.1 CF/88: Direitos e Garantias Fundamentais (Art. 5º ao 17)',
-                    '4.2 CF/88: Organização do Estado (Art. 21 ao 28)',
-                    '4.3 CF/88: Administração Pública (Art. 37 ao 41)',
-                    '4.4 CF/88: Poder Judiciário (Art. 92 ao 100, 125, 126)',
-                    '4.5 CF/88: Funções Essenciais à Justiça (Art. 127 ao 134)',
-                    '4.6 CF/88: Segurança Pública (Art. 144)',
+                    '4. CF/88: Direitos e Garantias Fundamentais (Art. 5º ao 17)',
+                    '4. CF/88: Organização do Estado (Art. 21 ao 28)',
+                    '4. CF/88: Administração Pública (Art. 37 ao 41)',
+                    '4. CF/88: Poder Judiciário (Art. 92 ao 100)',
+                    '4. CF/88: Tribunais e Juízes dos Estados (Art. 125 e 126)',
+                    '4. CF/88: Ministério Público (Art. 127 ao 129)',
+                    '4. CF/88: Advocacia e Defensoria Pública (Art. 131 ao 134)',
+                    '4. CF/88: Segurança Pública (Art. 144)',
                     '5. Lei Federal nº 7.960/1989 (Prisão Temporária)',
                     '6. Lei Federal nº 7.210/1984 (Lei de Execução Penal)',
-                    '7. Lei Federal nº 7.853/1989 (Pessoas com Deficiência)',
+                    '7. Lei Federal nº 7.853/1989 (Apoio às Pessoas com Deficiência)',
                     '8. Lei Federal nº 8.069/1990 (ECA)',
                     '9. Lei Federal nº 8.072/1990 (Crimes Hediondos)',
                     '10. Lei Federal nº 8.429/1992 (Improbidade Administrativa)',
                     '11. Lei nº 14.133/2021 (Licitações e Contratos)',
-                    '12. Lei Federal nº 8.930/1994 (Alterações Crimes Hediondos)',
+                    '12. Lei Federal nº 8.930/1994 (Redação Crimes Hediondos)',
                     '13. Lei Federal nº 9.455/1997 (Crimes de Tortura)',
-                    '14. Lei Estadual n.º 10.098/1994 (Estatuto RS): Provimento e Nomeação',
-                    '14.1 Lei Estadual n.º 10.098/1994: Estágio e Estabilidade',
-                    '14.2 Lei Estadual n.º 10.098/1994: Vencimentos e Vantagens',
-                    '14.3 Lei Estadual n.º 10.098/1994: Deveres e Proibições',
-                    '14.4 Lei Estadual n.º 10.098/1994: Regime Disciplinar e PAD',
-                    '15. Lei Federal nº 10.216/2001 (Saúde Mental)',
+                    '14. Lei Est. 10.098/94: Disposições Preliminares (Art. 1º ao 8º)',
+                    '14. Lei Est. 10.098/94: Provimento, Recrutamento e Concurso (Art. 10 ao 15)',
+                    '14. Lei Est. 10.098/94: Nomeação, Lotação e Posse (Art. 16 ao 21)',
+                    '14. Lei Est. 10.098/94: Exercício, Estágio e Estabilidade (Art. 22 ao 31)',
+                    '14. Lei Est. 10.098/94: Regime de Trabalho e Promoção (Art. 32 ao 38)',
+                    '14. Lei Est. 10.098/94: Formas de Provimento/Vacância (Art. 39 ao 61)',
+                    '14. Lei Est. 10.098/94: Tempo de Serviço e Férias (Art. 62 ao 72)',
+                    '14. Lei Est. 10.098/94: Vencimento, Remuneração e Vantagens (Art. 78 ao 88)',
+                    '14. Lei Est. 10.098/94: Indenizações, Diárias e Avanços (Art. 89 ao 99)',
+                    '14. Lei Est. 10.098/94: Gratificações e Adicionais (Art. 100 ao 116)',
+                    '14. Lei Est. 10.098/94: Direito de Petição (Art. 167 ao 176)',
+                    '14. Lei Est. 10.098/94: Deveres e Proibições (Art. 177 e 178)',
+                    '14. Lei Est. 10.098/94: Acumulações e Responsabilidades (Art. 179 ao 186)',
+                    '14. Lei Est. 10.098/94: Penalidades e PAD (Art. 187 ao 200)',
+                    '14. Lei Est. 10.098/94: Sindicância e Afastamento (Art. 201 ao 204)',
+                    '14. Lei Est. 10.098/94: PAD em Espécie e Inquérito (Art. 205 ao 225)',
+                    '14. Lei Est. 10.098/94: Disposições Gerais (Art. 266 ao 269)',
+                    '15. Lei Federal nº 10.216/2001 (Proteção em Saúde Mental)',
                     '16. Lei Federal nº 10.741/2003 (Estatuto do Idoso)',
                     '17. Lei Federal nº 10.826/2003 (Estatuto do Desarmamento)',
                     '18. Lei Federal nº 11.343/2006 (Lei de Drogas)',
-                    '19. Lei Federal nº 11.464/2007 (Crimes Hediondos - Alteração)',
-                    '20. Lei Federal nº 12.403/2011 (Prisão e Fiança)',
-                    '21. Lei Estadual n.º 13.259/2009 (Quadro Especial SUSEPE)',
+                    '19. Lei Federal nº 11.464/2007 (Alteração Crimes Hediondos)',
+                    '20. Lei Federal nº 12.403/2011 (Prisão Processual e Fiança)',
+                    '21. Lei Est. 13.259/2009 (Quadro Especial SUSEPE)',
                     '22. Declaração Universal Dos Direitos Humanos (1948)',
-                    '23. Código Penal: Parte Geral e Especial',
-                    '24. Código de Processo Penal: Prisão e Liberdade',
+                    '23. Código Penal: Aplicação, Imputabilidade e Penas',
+                    '23. Código Penal: Crimes Pessoa, Patrimônio e Dignidade Sexual',
+                    '23. Código Penal: Crimes Paz, Fé e Administração Pública',
+                    '24. Código de Processo Penal: Prisão e Liberdade Provisória',
                     '25. Decreto n° 678/1992 (Pacto de São José da Costa Rica)',
                     '26. Decreto nº 46.534/2009 (Regimento Disciplinar Penitenciário RS)',
-                    '27. Resolução nº 14/1994 (Regras Mínimas de Tratamento)',
-                    '28. Constituição do RS: Organização e Administração',
-                    '28.1 Constituição do RS: Segurança Pública e Política Penitenciária',
-                    '29. Constituição Estadual do Rio Grande do Sul (Geral)',
-                    '30. Decreto Estadual nº 48.598/2011 (Gênero, Raça e Etnia)'
+                    '27. Resolução nº 14/1994 (Regras Mínimas Tratamento Preso)',
+                    '28. Const. RS: Princípios e Organização (Art. 1º ao 7º)',
+                    '28. Const. RS: Administração e Servidores (Art. 19 ao 45)',
+                    '28. Const. RS: Poderes Legislativo e Executivo (Art. 49 ao 82)',
+                    '28. Const. RS: Poder Judiciário e Funções Justiça (Art. 91 ao 122)',
+                    '28. Const. RS: Segurança Pública e Órgãos (Art. 124 ao 136)',
+                    '28. Const. RS: Política Penitenciária (Art. 137 ao 139)',
+                    '29. Constituição Estadual do Rio Grande do Sul (Texto Integral)',
+                    '30. Decreto Est. nº 48.598/2011 (Gênero, Raça e Etnia)'
                 ]
             },
             {
@@ -220,10 +270,15 @@
                 title: 'Raciocínio Lógico',
                 topics: [
                     '1. Estrutura lógica de relações arbitrárias e Diagramas Lógicos',
-                    '2. Proposições e conectivos (Negação, Conjunção, Disjunção, Condicional)',
-                    '3. Tabelas-verdade, Tautologias e Equivalências Lógicas',
-                    '4. Sentenças abertas e Quantificadores',
-                    '5. Argumentos Lógicos Dedutivos e Categóricos'
+                    '2. Proposições e conectivos (Simples, Compostas e Valores Lógicos)',
+                    '2. Operações lógicas: Negação, Conjunção, Disjunção e Condicionais',
+                    '3. Construção de tabelas-verdade',
+                    '3. Tautologias, contradições e contingências',
+                    '3. Implicação e Equivalência Lógica (Leis De Morgan)',
+                    '3. Argumentação e dedução lógica',
+                    '4. Sentenças abertas e operações lógicas',
+                    '4. Quantificadores (Universal e Existencial) e Negação',
+                    '5. Argumentos Lógicos Dedutivos e Argumentos Categóricos'
                 ]
             }
         ];
@@ -233,9 +288,8 @@
         const sunIcon = document.getElementById('sunIcon');
         const moonIcon = document.getElementById('moonIcon');
 
-        // Initialize state
-        let progressData = JSON.parse(localStorage.getItem('edital_progress')) || {};
-        let isDarkMode = localStorage.getItem('edital_darkmode') === 'true';
+        let progressData = JSON.parse(localStorage.getItem('v3_edital_progress')) || {};
+        let isDarkMode = localStorage.getItem('v3_edital_darkmode') === 'true';
 
         function updateTheme() {
             if (isDarkMode) {
@@ -251,121 +305,102 @@
 
         themeToggle.addEventListener('click', () => {
             isDarkMode = !isDarkMode;
-            localStorage.setItem('edital_darkmode', isDarkMode);
+            localStorage.setItem('v3_edital_darkmode', isDarkMode);
             updateTheme();
         });
 
-        function saveProgress() {
-            localStorage.setItem('edital_progress', JSON.stringify(progressData));
-            updateAllProgressBars();
-        }
-
-        function updateSubjectProgress(subjectId) {
-            const checkboxes = document.querySelectorAll(`input[data-subject="${subjectId}"]`);
-            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-            const percentage = Math.round((checkedCount / checkboxes.length) * 100);
-            
-            const bar = document.getElementById(`progress-bar-${subjectId}`);
-            const text = document.getElementById(`progress-text-${subjectId}`);
-            
-            bar.style.width = `${percentage}%`;
-            text.innerText = `${percentage}%`;
-        }
-
-        function updateAllProgressBars() {
-            let totalTopics = 0;
+        function updateProgress() {
             let totalChecked = 0;
+            let totalTopics = 0;
 
             syllabusData.forEach(subject => {
-                const checkboxes = document.querySelectorAll(`input[data-subject="${subject.id}"]`);
-                const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const subjectCheckboxes = document.querySelectorAll(`input[data-subject="${subject.id}"]`);
+                const checkedInSubject = Array.from(subjectCheckboxes).filter(cb => cb.checked).length;
                 
-                totalTopics += checkboxes.length;
-                totalChecked += checked;
+                totalChecked += checkedInSubject;
+                totalTopics += subjectCheckboxes.length;
 
-                updateSubjectProgress(subject.id);
+                const percentage = subjectCheckboxes.length > 0 ? Math.round((checkedInSubject / subjectCheckboxes.length) * 100) : 0;
+                
+                const bar = document.getElementById(`bar-${subject.id}`);
+                const text = document.getElementById(`text-${subject.id}`);
+                if(bar) bar.style.width = `${percentage}%`;
+                if(text) text.innerText = `${percentage}%`;
             });
 
-            const overallPercentage = totalTopics > 0 ? Math.round((totalChecked / totalTopics) * 100) : 0;
-            document.getElementById('overallProgressBar').style.width = `${overallPercentage}%`;
-            document.getElementById('overallPercentage').innerText = `${overallPercentage}%`;
+            const overall = totalTopics > 0 ? Math.round((totalChecked / totalTopics) * 100) : 0;
+            document.getElementById('overallProgressBar').style.width = `${overall}%`;
+            document.getElementById('overallPercentage').innerText = `${overall}%`;
         }
 
-        function renderSyllabus() {
+        function toggleTopic(topicId, subjectId) {
+            const checkbox = document.querySelector(`input[data-topic="${topicId}"]`);
+            progressData[topicId] = checkbox.checked;
+            localStorage.setItem('v3_edital_progress', JSON.stringify(progressData));
+            updateProgress();
+        }
+
+        function toggleAccordion(subjectId) {
+            const content = document.getElementById(`content-${subjectId}`);
+            const icon = document.getElementById(`icon-${subjectId}`);
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        function render() {
+            container.innerHTML = '';
             syllabusData.forEach(subject => {
-                const card = document.createElement('div');
-                card.className = 'card overflow-hidden';
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'card overflow-hidden';
                 
                 let topicsHtml = '';
                 subject.topics.forEach((topic, index) => {
                     const topicId = `${subject.id}-${index}`;
-                    const isChecked = progressData[topicId] ? 'checked' : '';
-                    
+                    const checkedAttr = progressData[topicId] ? 'checked' : '';
                     topicsHtml += `
-                        <label class="topic-item flex items-start gap-3 p-3 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-colors">
+                        <label class="topic-item flex items-start gap-4 p-4 cursor-pointer">
                             <input type="checkbox" 
-                                   class="checkbox-custom mt-1" 
+                                   class="checkbox-custom mt-0.5" 
                                    data-subject="${subject.id}" 
-                                   data-topic="${topicId}"
-                                   ${isChecked}
-                                   onchange="toggleTopic('${topicId}', '${subject.id}', this.checked)">
-                            <span class="text-sm md:text-base leading-tight">${topic}</span>
+                                   data-topic="${topicId}" 
+                                   ${checkedAttr}
+                                   onchange="toggleTopic('${topicId}', '${subject.id}')">
+                            <span class="text-sm md:text-base font-medium leading-relaxed">${topic}</span>
                         </label>
                     `;
                 });
 
-                card.innerHTML = `
-                    <div class="subject-header p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-opacity-50" onclick="toggleAccordion('${subject.id}')">
-                        <div class="flex items-center gap-3">
-                            <div class="w-2 h-8 bg-blue-500 rounded-full"></div>
-                            <h2 class="text-xl font-bold">${subject.title}</h2>
-                        </div>
+                subjectCard.innerHTML = `
+                    <div class="subject-header p-5 flex items-center justify-between gap-4" onclick="toggleAccordion('${subject.id}')">
                         <div class="flex items-center gap-4">
-                            <div class="text-right">
-                                <div class="progress-container w-24">
-                                    <div id="progress-bar-${subject.id}" class="progress-bar"></div>
+                            <div class="w-1.5 h-10 bg-indigo-500 rounded-full"></div>
+                            <h2 class="text-lg md:text-xl font-bold tracking-tight">${subject.title}</h2>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="hidden sm:block text-right">
+                                <div class="progress-container w-24 mb-1 shadow-inner">
+                                    <div id="bar-${subject.id}" class="progress-bar"></div>
                                 </div>
-                                <span id="progress-text-${subject.id}" class="text-xs font-bold">0%</span>
+                                <span id="text-${subject.id}" class="text-[10px] font-black uppercase tracking-widest opacity-60 text-indigo-600 dark:text-indigo-400">0%</span>
                             </div>
-                            <svg id="icon-${subject.id}" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg id="icon-${subject.id}" class="w-6 h-6 transition-transform duration-300 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
                         </div>
                     </div>
-                    <div id="content-${subject.id}" class="hidden">
-                        <div class="p-1">
+                    <div id="content-${subject.id}" class="hidden border-t border-gray-100 dark:border-gray-800">
+                        <div class="bg-slate-50/40 dark:bg-slate-900/20">
                             ${topicsHtml}
                         </div>
                     </div>
                 `;
-                container.appendChild(card);
+                container.appendChild(subjectCard);
             });
-            
-            updateAllProgressBars();
             updateTheme();
+            updateProgress();
         }
 
-        window.toggleTopic = (topicId, subjectId, isChecked) => {
-            progressData[topicId] = isChecked;
-            saveProgress();
-        };
-
-        window.toggleAccordion = (subjectId) => {
-            const content = document.getElementById(`content-${subjectId}`);
-            const icon = document.getElementById(`icon-${subjectId}`);
-            const isHidden = content.classList.contains('hidden');
-            
-            if (isHidden) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        };
-
-        // Start
-        renderSyllabus();
-
+        render();
     </script>
 </body>
 </html>
-
